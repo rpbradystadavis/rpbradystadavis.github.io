@@ -14,16 +14,37 @@
 				<ul>
 					<li><a href="index.html">Home</a></li>
           <li><a href="report.html">Report</a></li>
-          <li><a href="data.html">Data</a></li>
         </ul>
       </nav>
       <section>
         <article id="about">
-					<h2>Project Report</h2>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          <img src="images/test.jpg" alt="picture of field"/>
+					<h2 align = "center">Using Hyperspectral Satellite Images to Classify Crops</h2>
+          <h3>Introduction</h3>
+          <p class ="first">
+            Satellite Image Analysis is a new, quickly growing field due to a plethora of new remote sensing data from satellites and aerial imaging. Aerial imaging has been the primary remote sensing techniques to aid farming practices for the past 70 years. With advancements in satellite imagery, researchers have shifted from using aerial photography to satellite photography to gain insights on plant health and predict crop yield. Also, with recent increases in computing power, computers can now apply statistical learning methods to extremely high resolution photos.
+          </p>
+          <p class = "first">
+            Our project demonstrates the power of statistical learning and image classification for classifying crops in fields based on satellite images. Specifically, the 90% accuracy rate of the classifier demonstrates that using statistical learning methods to classify crop by color bandwidth is effective in finding differences indistinguishable to the human eye.
+          </p>
+          <p class = "first">
+            Recently, the World Bank awarded the Sustainability and Artificial Lab at Stanford [1] for its crop yield and classification algorithm with 10,000 dollars as a solution for fighting food insecurity. These types of algorithms can provide groups such as the World Health Organization with information on where crops are failing to grow and which areas in developing nations will need aid in the near future. Our project presents a step of a Crop Yield prediction model by first classifying which crops are located where.
+          </p>
+          <h3>The Data</h3>
+          <p class = "first">
+            In Luis Samaniego’s paper [2] on crop identification through remote sensing he mentions that spectral color bandwidths are key to differentiating crop types. Thus, for our project we acquired a satellite image from a sentinel 2 satellite, which captures 13 different color band images over an area, hosted on Research and User Support (RUS)- Copernicus program [3]. Sentinel 2 satellites split the bands by using a multispectral beamsplitter that separates the light reflectance of an image into 13 separate color bandwidths. Each color bandwidth is a spectral sensor taken on a different light scale and is a 3 dimensional array tracking the light reflectance (ƛ) and position (x,y) or pixel placement[5].  information RUS-Copernicus also provided us a server to run analysis and work with the data.
+          </p>
+          <!-- Need help on footnotes-->
+          <p class = 'first'>
+            We chose to use two different satellite images covering Yolo County, one taken on the date July 15th, 2016 and  a second taken on August 23rd 2016. Crops flower and grow over the summer, thus as time changes and crops grow, crops will reflect light differently. Because crops grow over time and we have captured two periods over summer, through statistical methods we can differentiate crops that were planted around early July from those that maybe fallow in August due to both crop fields at those times representing patches of dirt.
+          </p>
+          <p class = 'first'>
+            Each satellite image consists of 13 color bandwidths with zero cloud cover [3]. The first color bandwidth represents the coastal aerosols, which is named due to the pixels on this bandwidth having high reflectance values along coasts and bodies of water. Coastal aerolis’ pixels provides also highlights dense vegetation through their light reflectance. The second, third and fourth color bandwidths are colors visible to the human eye, structured as blue , green and red [4]. Bands five through nine depict near infrared bandwidths that are indistinguishable to the human eye, but are key for differentiating crops. Infrared bandwidths are important in identifying vegetation because plants emit more infrared light than other uses of land. Bands 10, 11, and 12 contain shortwave infrared information, which is not useful for classifying crops.
+          </p>
+          <p class = 'first'>
+            We also obtained a dataset from the Yolo County GIS [6], of crop fields, which contained crop type and shapefile data in 2016. This dataset was used as our response variable and used to extract the boundaries of all the fields in Yolo County. This data set consists of around 15,000 reported crop fields.  The most common crops in our dataset are tomatoes, alfalfa, wheat, and sunflower. These crops each had well over 1000 fields in our database.
+          </p>
+          <img class = 'center' src="images/graph.jpeg" alt="Graph of Most Common Fields in Yolo County"/>
           <p class='figure'>Text for Images in figure class paragraphs</p>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 				</article>
       </section>
       <footer>
