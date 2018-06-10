@@ -111,18 +111,20 @@ h4 {
 p {
   margin-bottom: 4px;
 }
+
 p.first {
 text-indent: 3em;
 }
-/*b */
-/*1020 */
-/*img {
-  width: 940px;
-  padding-left: 40px;
-  padding-right: 40px;
-  padding-top: 20px;
-  padding-bottom: 20px;
-}*/
+
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
 
 .center {
     display: block;
@@ -132,11 +134,20 @@ text-indent: 3em;
     padding-top: 20px;
     padding-bottom: 20px;
 }
+
 .crop_fields{
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 75%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.box_plot{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
   padding-top: 20px;
   padding-bottom: 20px;
 }

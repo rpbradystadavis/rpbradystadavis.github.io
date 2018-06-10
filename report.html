@@ -44,7 +44,114 @@
             We also obtained a dataset from the Yolo County GIS [6], of crop fields, which contained crop type and shapefile data in 2016. This dataset was used as our response variable and used to extract the boundaries of all the fields in Yolo County. This data set consists of around 15,000 reported crop fields.  The most common crops in our dataset are tomatoes, alfalfa, wheat, and sunflower. These crops each had well over 1000 fields in our database.
           </p>
           <img class = 'center' src="images/graph.jpeg" alt="Graph of Most Common Fields in Yolo County"/>
-          <p class='figure'>Text for Images in figure class paragraphs</p>
+          <p class = 'first'>
+            As can be seen in the bar plot above much of the the data was listed as “Unknown”, 1133, with no clear note if the field was fallow, had a cover crop on top, or if the field was used for purposes other than farming. We did not use observations listed as “unknown”, nor did we use observations that listed multiple crops on the field in this study. This is due to our inability to ground truth the crop fields in 2016, due to it being 2018. This makes our data less reliable when predicting for fields with zero crop listings and or a vague crop listing.
+          </p>
+          <p class = 'first'>
+            We started our analysis by only using the image from the first July date. We identified the pixels within every crop field for each of the first 10 color bands and then extracted the 25th, 40th, 50th, and 75th quantiles, mean, and standard deviation of the light reflectance values for each crop field.These statistics about the color distributions represent the predictor variables for our eventual model. Since each crop field contained anywhere from 100 to 1000 pixels and Yolo County has well over 15000 crop fields, for this project we decided to classify using the distribution of light bandwidths due to a time restraint.
+          </p>
+          <p class = 'first'>
+            Once we obtained the color bandwidth data we went through the Yolo County database to search for differences in crops described as organic or non organic. Because there are far fewer organic crops than non organic in Yolo County, the organic crops color band distribution were not always distributed normally[7]. In working with raster data, georeferenced satellite images,, it is generally assumed that the light bands will be normally distributed. In order to correct for the normality assumption in the Hotelling T<sup>2</sup> Test, we administered a Hotelling T<sup>2</sup> Test with a bootstrap to the color bandwidths with the following hypothesis:
+          </p>
+          <p align = 'center'>
+            H<sub>0</sub>: Median Color Bands of Non-Organic Alfalfa = Median Color Bands of Organic Alfalfa
+          </p>
+          <p align = 'center'>
+            H<sub>1</sub>: Median Color Bands of Non-Organic Alfalfa ≠ Median Color Bands of Organic Alfalfa
+          </p>
+          <p class = 'first'>
+            From this test we received a .01 ; suggesting that at the 95% confidence level we would fail to reject to see a difference between the two color bandwidths’ medians. In order to check our results we also administer the same Hotelling T<sup>2</sup> Test with a bootstrap correction on Tomato plants.
+          </p>
+          <p align = 'center'>
+            H<sub>0</sub>: Median Color Bands of Non-Organic Alfalfa = Median Color Bands of Organic Alfalfa
+          </p>
+          <p align = 'center'>
+            H<sub>1</sub>: Median Color Bands of Non-Organic Alfalfa ≠ Median Color Bands of Organic Alfalfa
+          </p>
+          <p class = 'first'>
+            This resulted in a p-value of .001 which also suggests we reject the null hypothesis that both groups of plants emit similar light reflection.
+          </p>
+          <p class = 'first'>
+            When looking at both Tomato and Alfalfa’s color reflectance plots it is clear that there is a difference in the distribution of medians for organic and non organic plants in the near infrared color bandwidths, 7 and 8.
+          </p>
+          <img class = 'center' src="images/garbage.jpeg" alt = "terrible plot" />
+          <p class = 'first'>
+            Another problem with the crop listings was that half of the Yolo County GIS data that we use as our response variable is listed as uncultivated and combined with another crop. For instance, every tomato field is also listed as uncultivated - uncultivated suggests the field is fallow; however, tomatoes were the most produced plant in 2016. Thus, this information misclassifies this data. Because our data is from July and tomatoes are planted late spring through early summer, it is difficult to differentiate whether this land is a fallow field or a newly planted field. We overcame this issue by later adding another photo from August and acquiring more data.  There are also fields listed as uncultivated, but that may be growing a cover crop to return nutrients to the soil. These two types of fields (listed as growing but appear to be fallow and listed as fallow but appear to be growing) are the false negatives and false positives in our data set. We have attempted to minimize our errors by throwing out fields that add confusion ,such as the unknown, uncultivated, and fields with more than 1 crop. This simplifies our data to be able to tell the difference between planted crops that are growing.
+          </p>
+          <p class = 'first'>
+            Although we used 6000 fields to train the model, our model may not generalize to different climates and location. The data that we used from Yolo County will only have plants that are grown in Yolo County, i.e. alfalfa, tomatoes, and almonds. When new crops are introduced, our algorithm will not be able to properly classify them because it has zero training data to make a prediction.
+          </p>
+          <h3>Questions/Lines of Exploration</h3>
+          <p class = 'first'>
+            We started our analysis with the photo taken on July 15th. Later, we combined the data sets from July 15th and August 23rd to see how adding data for crops that are not be fully visible until late summer or early fall affected accuracy.
+          </p>
+          <h4>July 15th Analysis</h4>
+          <p class = 'first'>
+            To first test if color bandwidths were effective at differentiating crops, we implemented a binary support vector machine (SVM) with a radial basis function (rbf) kernel to test tomatoes vs alfalfa. Each test we ran was split using cross-validation by sampling a random training and testing validation set. Using every color band as predictors we managed to classify 97% of the tomatoes and alfalfa plots correctly.
+          </p>
+          <p class = 'first'>
+            The SVM constructs hyperplanes for linearly separable patterns. These hyperplanes are determined by support vectors which are the points that lie closest in between the hyperplanes. The support vectors represent points where the SVM  fits a line between them to separate classes. In this project the SVM constructs hyperplanes from the distribution statistics of the color bandwidths for each crop field. It then uses those statistics to try and find a line that keeps misclassification error to a minimum.
+          </p>
+          <p class = 'first'>
+            While the SVM model was effective for binary classification, it was less effective for  multi-class classification. The SVM when introduced to multi-class labeling was only 55% accurate at classifying the top eleven cultivated crops, combining organic and non-organic crops,: tomato, alfalfa, wheat, sunflower seed, almond, rice, grape, walnut,oats, corn and rice. The SVM classified poorly because much of the data is not linearly separable in every bandwidth. This causes the SVM to create support vectors that possibly bisect a type of crop, meaning that when trying to create a plane between two crops it ends up cutting up the cluster of a third crop. This will end up confusing the model and making it far more difficult to classify.
+          </p>
+          <p class = 'first'>
+            In Samaniego’s paper [2], he implements a Modified Nearest Neighbor technique to classify crops, so we tried a kNN model to classify crops. Because the ball tree algorithm outpreformed the standard KNN standard method we used the ball tree algorithm for our kNN algorithm with 9 neighbors. We chose nine neighbors because after running a cross validation score 9 neighbors had the highest accuracy for our model. The ball tree method starts by dividing our data set of color bands into two distinct groups. It further groups  the crop fields into multi-dimensional spheres. These hyperspectral spheres contain the information on what the algorithm believes is a specific crop. The spheres themselves resemble balls and the unclassified fields must fall into these balls in order to make a strong prediction [8].  The Knn with ball trees algorithm predicted at 82% accuracy on average in our trials.
+          </p>
+          <p class = 'first'>
+            We also tested a classification tree method called extreme random trees (extra trees). The extra trees method starts with all data points in a single group and split the objects into subgroups based on values. This splitting process continues until a suitable stopping point is reached. In our case, each color band’s values will be used as “branches” for the tree and at specific values of the color bandwidth the splits will be made. This is effective for our data because the data itself highly varies by band and because the extra trees splits this information into color bands by the highest likelihood, we can obtain a more accurate classifier. Specifically for extra trees classification, when the model chooses a color band statistic to split, samples for the classifier are pulled from the entire data set and then used for a split. Splits for Extra Trees Classification are then chosen at random from the range of values in the sample at each split [9]. The Extra Trees method obtained 84% accuracy for classification.
+          </p>
+          <p class = 'first'>
+            The trees method outperformed the kNN because the Ball Trees method forces the data into specific classification based on neighbors. The Extra Trees method is more robust due to its many branches and randomness. This allows for data points that may be missed after the first branch to find themselves back in the classification at later splits. While the first split usually differentiates groups, because we are using a decision tree, points which might first have a large difference iand get seperated can find itself correctly classified later in the model due to the robust nature of a decision tree model.
+          </p>
+          <p class = 'first'>
+            While our models did a decent job of detecting differences between crop types, due to the findings that Organic and Non-Organic crops have subtle differences when removing organic produce from our model, the model improved to 86% accuracy. This suggests that organic crops introduce a small amount of noise that the models cannot correct. Another thought is that organic crops are farmed differently, using biological pest control, natural fertilizers, and companion planting instead of industrial farming. This would mean that the farms might be smaller, since a farmer has to put more work and care into his farm in order to keep it organic certified. In a sample size that is already smaller, having less pixels per farm and more noise because of the farming techniques means that the organic data will be much noisier than the industrially farmed areas’ data.
+          </p>
+          <p class = 'first'>
+            The satellites ability to various bandwidths of light allows for the models to pick up the minute differences between crop types. The nearest neighbor and trees classifiers are more robust to non-randomized data compared to the SVM. The two models were able to adapt to the varying sizes of each group and use the color bandwidth information to classify the data with higher than 80% accuracy.
+          </p>
+          <p class = 'first'>
+            We also decided to investigate how well an individual bandwidth would classify. The predictor did well, predicting  around 70% accuracy. After further investigation, we found that bandwidth 3 discriminated between two groups that had the largest influence on our model and exclusively predicted those two crops, which caused a higher accuracy.
+          </p>
+          <h4>July and August</h4>
+          <p class = 'first'>
+            We chose August to be added to July because it was the only photo taken between August and November that had no cloud cover over Yolo County. While August will only add details to crops planted in late spring and early summer, this does allow us to gain information on crops such as tomatoes that grow over the summer. Having more information on tomatoes is important in our analysis because tomatoes are the highest yielded crop in Yolo County.
+          </p>
+          <p class = 'first'>
+            Using this extra data, we combined it with the July data set and tested the same models as preformed above. For our SVM, we obtained an accuracy of  75%, for kNN, 87% and for extra trees 89%. Both kNN and extra trees improved by about 3% in accuracy whereas SVM improved by 20%. The most drastic change in the confusion matrix for the SVM occurs in predicting the tomato crop. The SVM with only the July data made many more predictions for tomato, both right and wrong, whereas with the additional information it predicted less tomatoes and evened out the distribution and accurately predicted many more of the less produced crops[Appendix A]. The kNN and extra trees seem to have just had an even improvement of all crops.
+          </p>
+          <p class = 'first'>
+            The added accuracy suggests that having images over multiple growing periods improves the models’ classifications. This result was expected because the added information should allow crops which were recently planted, such as tomatoes, to have time to grow and reflect different amounts of light emittance. These results are further exemplified in the box plot below.
+          </p>
+          <img class = 'box_plot' src = 'images/beautyandthebeast.jpeg' alt = "boxyplotboys" />
+          <p class = 'first'>
+            For the most accurate model, the Extra Trees classifier, we investigated the entropy of each crop. The magnitude of the entropy tells us how often our model had to make a close decision between multiple crops. When a data point has a high entropy, that means that our model made a difficult decision when classifying the crop of that field. Corn and alfalfa were the crops with the largest entropy, meaning that the model had to make close decisions with these crops more often than the others. We believe that this is because these are the two largest crop types in Yolo County and therefore would be mistaken for crops because of the quantity of those crops with respect to the quantity of the other crops.
+          </p>
+          <p class = 'first'>
+            We then went on to calculate the entropy for each sample in the Extra Trees model and group them by whether we classified correctly or incorrectly. It can be seen by the means of the entropy that the means of the misclassified fields’ entropy is close to 0.9 and the correctly classified fields’ entropy is around 0.15 [Appendix B]. This means that our model, when classifying is sure when it classifies correctly, but when it misclassifies it is confused and is far less confident in its classification. Looking at the plots of the misclassified fields by entropy in Appendix B [B], it can be seen that most of them have high entropy and that they are randomly distributed through the entirety of Yolo County. In the plots of the correctly classified crops there is an area of high entropy the SE corner of Yolo County, although these are correctly classified, it is worth pointing out that there is a spatial correlation to higher entropy in this corner.
+          </p>
+          <h3>Future Directions</h3>
+          <p class = 'first'>
+            The next step in continuing our project is to include data from surrounding areas in order to make our data more robust to elevation, climate, and culture changes. Our project’s main goal was to classify crops in Yolo County. This  data restricts our analysis to only Yolo County due to Yolo County having a very specific crop type distribution.  Adding in more fields and more crop types from surrounding counties will make our data more robust and applicable to more areas. This step is very important if we want to generalize a classifier to predict crop types in any location and climate. Having location information and elevation information will allow us to visualize crop distribution and how crops change by region. Crop will vary due to soil type, weather factors, location, and elevation. Obtaining data on these factors will help better classify crops.
+          </p>
+          <p class = 'first'>
+            Using more high definition photos could also help our model classify better. Initially we used NAIP Aerial Imagery from the USDA to detect crops, but after reading papers and investigating models, we switched to lower resolution satellite imagery with more infrared bandwidths. Our resolution went from about 0.6m per pixel to 10m per pixel. With the higher definition imagery in the future we could compare predictions from the Satellite Images and the Aerial photos to evaluate which method worked better.
+          </p>
+          <p class = 'first'>
+            If we wanted to make this project more about land use in general, another future direction would be detecting crop fields and vegetation without known shapefiles. Detecting crop fields would require us to use edge detection and near infrared bandwidths on images to find the fields. We would need to use the near infrared bandwidths in order to distinguish vegetation from either roads, dirt, or water using the Normalized Difference Vegetation Index (NDVI). This uses the property that vegetation will emit a higher intensity of infrared light compared to red light. After finding areas of vegetation, we would implement edge detection to identify that the vegetation edges clearly represent fields.
+          </p>
+          <p class = 'first'>
+            Another future goal of our project is to add more temporal data. We added the August images to help our analysis and they added about 3% more accuracy to our final predictions. Adding more Fall, Winter, and Spring photos will add more data on crops not in growing season over the summer. Another difficult part of working with temporal data is that in non-summer seasons there will typically be more cloud cover. This will affect us finding more temporal images and or introduce the problem of stitching images taken over a similar time period together in order to avoid cloud cover. Temporal images help classify which crops are growing in specific areas and can provide better information on how these crops are growing.
+          </p>
+          <p class = 'first'>
+            Not only will temporal images aid our classification model they will also provide information on how well crop fields are growing. Our findings, especially with added improvements and information will help build a model that can successfully predict crop yields. This  is a main goal of groups such as the World Health Organization (WHO)[1], which in fighting food insecurity  would benefit from accurate predictions on crop yields.  Our findings would help WHO by offering valuable insights as to when and where famine will occur.
+          </p>
+          <h3>Conclusion</h3>
+          <p class = 'first'>
+            As our project stands it is the first tool to implement a crop yield analysis. Through this project we have illustrated statistical learning techniques are effective at classifying crops and even more-so when using images from varying time periods. Implementing an Extra Trees model we found that using two different images we could classify 89.5% of the crop fields in Yolo County Correctly. The remaining 10% of the fields had high entropy and were scattered randomly throughout Yolo County; thus we can infer that more powerful neural networks such as the one in Stanford’s paper [1] will make these classifiers more accurate. Below is a photo that shows our final correctly classified versus misclassified map.
+          </p>
+          <img class = 'center' src = "images/predicted.jpeg" alt = "Correct vs Incorrect Preds" />
+          <h3>Appendix</h3>
 				</article>
       </section>
       <footer>
