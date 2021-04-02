@@ -1,0 +1,183 @@
+html, body, div, span, applet, object, iframe,h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+
+/* HTML5 display-role reset for older browsers */
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+/****************** End CSS RESET *****************/
+
+body{
+  font-family: 'Arial', sans-serif;
+  color: #000;
+  font-size: 14px;
+}
+
+.container {
+  width: 1020px;
+  margin: auto;
+}
+
+header{
+  background: #00437F;
+  padding: 50px;
+}
+
+header h1 {
+  font-size: 36px;
+  font-weight: bold;
+  color: #fff;
+  text-align: center;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  width: 340px;
+  background: #F9C73D;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 40px;
+  color: #fff;
+	font-size: 18px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  color: #000;
+}
+
+section {
+  float: left;
+  width: 800px;
+  margin-right: 110px;
+  margin-left: 110px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+  line-height: 20px;
+}
+
+h2 {
+  font-size: 23px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+h3 {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+h4 {
+  font-size: 15px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+p {
+  margin-bottom: 4px;
+}
+
+p.first {
+text-indent: 3em;
+}
+p.bib {
+  margin-bottom: 7px;
+}
+
+sup {
+    vertical-align: super;
+    font-size: smaller;
+}
+
+sub {
+    vertical-align: sub;
+    font-size: smaller;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+}
+
+.crop_fields{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.box_plot{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 65%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}/*a*/
+.entropy{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 55%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.figure {
+  font-size: 10px;
+  text-align: center;
+  padding-bottom: 20px;
+}
+
+footer {
+  clear: both;
+  background-color: #00437F;
+  padding: 20px;
+  line-height: 20px;
+  font-size: 12px;
+  color: #FFFFFF;
+  text-align: center;
+}
