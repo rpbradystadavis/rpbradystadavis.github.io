@@ -56,11 +56,17 @@ body {
 }
 
 /* Column container */
-.row {
-  display: -ms-flexbox; /* IE10 */
-  display: flex;
-  -ms-flex-wrap: wrap; /* IE10 */
-  flex-wrap: wrap;
+.column {
+  float: left;
+  width: 33.33%;
+  padding: 5px;
+}
+
+/* Clear floats after image containers */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
 }
 
 /* Create two unequal columns that sits next to each other */
@@ -72,13 +78,20 @@ body {
   padding: 20px;
   text-align: center
 }
-
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 /* Main column */
 .main {
   -ms-flex: 70%; /* IE10 */
   flex: 70%;
   background-color: white;
-  padding: 20px;
+  padding-right: 120px;
+padding-bottom: 120px;
+padding-left: 120px;
 }
 
 /* Fake image, just for this example */
@@ -121,7 +134,7 @@ body {
   <a href="https://rpbradystadavis.github.io/">About Me</a>
   <a href="https://rpbradystadavis.github.io/BradyResume.pdf">Resume</a>
   <a href="https://github.com/rpbradystadavis">Github</a>
-  <a href="https://rpbradystadavis.github.io/Sat_Proj/">Satellite Crop Classification Project</a>
+  <a href="https://www.linkedin.com/in/ryan-b-50a677102/">Linkedin</a>
 </div>
 
 <div class="row">
@@ -129,20 +142,51 @@ body {
   <div class="main">
     <h2>Consulting Projects</h2>
       <h3>Citibank Monitorship</h3>
+      <p> The Citibank Monitorship was my second project involving RShiny. I encountered three roadblocks while creating these maps, but overcame them in order to build simple, quick, dashboards using leaflet. The three roadblocks were:
+      <ol>
+          <li>Managing a Linux AWS Instance</li>
+          <li>Understanding React and how to use React with drop down filters </li>
+          <li>Linking Javascript events to RShiny</li>
+        </ol>
+        Overcoming the three roadblocks required careful reading of Linux Centos and R dev install documents, watching RShiny youtube videos to better understand React and R, and working with the internal web development team on creating JS elements and linking those elements to the R Shiny backend.In the end the monitor was pleased with the result and I was excited about using a Rshiny rather than other standard BI tools to experiment in more creatives designs.
+
+      </p>
+
+      <div class="column">
       <a href="http://www.citigroupmonitorship.com/citibank-consumer-relief-maps/">
                <img alt="Qries" src="images/Consumer_Relief.png"
                width="450" height="250">
             </a>
+            </div>
+            <div class="column">
             <a href="http://www.citigroupmonitorship.com/fair-lending-analysis-dual-axis-maps/">
                      <img alt="Qries" src="images/Dual_Axis.png"
                      width="450" height="250">
                   </a>
+                  </div>
+                  <div class="column">
                   <a href="http://www.citigroupmonitorship.com/affordable-housing-tests/">
                            <img alt="Qries" src="images/Affordable_Housing.png"
                            width="450" height="250">
                         </a>
+                      </div>
+          <br>
+        </div>
+        <div class="main">
+        <h2> Senior Project </h2>
+        <h3>Satellite Imagery Crop Classification</h3>
+          <p> In my senior year I took a class that focused on creating and developing a single data science project. For this project, I worked with a group on classifying a type of crop in a crop field. This project required my group to learn how to work with USGS APIs, understand GIS Cloud containers, and how to run supervised learning models on abstract data sources. The most difficult part of the project was coming up with a method to manipulate a satellite image into something we could use to train a supervised learning model. By reading different papers on crop classifciation and using satellite imagery in supervised learning we were able to create a usable data set by using the history of crop fields in Yolo County, CA to cut out individual crop fields in the satellite imagery and use aggregated pixel color information to predict crop types. This project definitely tested my abiilty to quickly learn about a subject and also learn how to use data that is abstract in the sense that it's not simply columnar.
 
-
+          </p>
+  <div class="center">
+    <h3>Locations of Crops in Yolo County CA</h3>
+    <p>click image to view project</p>
+    <a href="https://rpbradystadavis.github.io/Sat_Proj/">
+             <img alt="https://rpbradystadavis.github.io/Sat_Proj/" src="images/crops.jpeg"
+             width="850" height="450",class="center">
+           </a>
+</div>
+</div>
 
     <br>
 
