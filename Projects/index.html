@@ -175,6 +175,21 @@ padding-left: 120px;
           <br>
         </div>
         <div class="main">
+          <h2> Tidy Tuesday </h2>
+            <h3> US Post Office Locations 1700s - 2002.</h3>
+          <p> I saw a neat visual by @drob on twitter demonstrating gganimate with this dataset showing the location of US Post Offices each year from the late 1700s to 2002. I thought it would be cool to replicate the visual without looking at any code of @Drob to test myself if I could figure out gganimate works. The code was fairly simple and I then decided to expand the dataset a bit and joined on census records.
+          </p>
+        </p>
+            I got the census data by scraping Wikipedia with rvest and I realized my css and html knowledge from making RShiny Dashboards are much more useful for webscraping than selector gadget, my old trustee tool. I think the resulting graphic turned out alright, minus the flickering of random data? I also definitely think there's room to edit the data so census is every year and you just estimate via growth rate the data between two decades. The only problem on my personal computer making the GGanimate was getting very computationally expensive and I did crash my mac at least once. So maybe I can try that on a cloud machine.
+          </p>
+          <p>But anyways this was my first tidy tuesday project and it was pretty fun.
+          </p>
+
+          <img alt="Post Office Gif" src="images/Post_Office_Pop.gif"
+               width="700" height="450",class="center" title = "Post Office locations at each decade from 1810-2000">
+
+        </div>
+        <div class="main">
         <h2> Senior Project </h2>
         <h3>Satellite Imagery Crop Classification</h3>
           <p> In my senior year I took a class that focused on creating and developing a single data science project. For this project, I worked with a group on classifying a type of crop in a crop field. This project required my group to learn how to work with USGS APIs, understand GIS Cloud containers, and how to run supervised learning models on abstract data sources. The most difficult part of the project was coming up with a method to manipulate a satellite image into something we could use to train a supervised learning model. By reading different papers on crop classifciation and using satellite imagery in supervised learning we were able to create a usable data set by using the history of crop fields in Yolo County, CA to cut out individual crop fields in the satellite imagery and use aggregated pixel color information to predict crop types. This project definitely tested my abiilty to quickly learn about a subject and also learn how to use data that is abstract in the sense that it's not simply columnar.
@@ -185,7 +200,7 @@ padding-left: 120px;
 
     <a href="https://rpbradystadavis.github.io/Sat_Proj/">
              <img alt="https://rpbradystadavis.github.io/Sat_Proj/" src="images/crops.jpeg"
-             width="850" height="450",class="center" title = "Click to view Project"> 
+             width="850" height="450",class="center" title = "Click to view Project">
            </a>
 </div>
 </div>
